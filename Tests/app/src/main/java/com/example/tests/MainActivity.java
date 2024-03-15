@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_swiper, R.id.navigation_eat, R.id.navigation_likedislike, R.id.navigation_options)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
 
