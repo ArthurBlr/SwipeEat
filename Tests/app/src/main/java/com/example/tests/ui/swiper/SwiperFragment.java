@@ -10,23 +10,65 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.tests.R;
 import com.example.tests.databinding.FragmentSwiperBinding;
+import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
+import com.yuyakaido.android.cardstackview.CardStackListener;
+import com.yuyakaido.android.cardstackview.CardStackView;
+import com.yuyakaido.android.cardstackview.Direction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SwiperFragment extends Fragment {
 
     private FragmentSwiperBinding binding;
 
+    private CardStackLayoutManager manager;
+    private CardStackAdapter adapter;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SwiperViewModel swiperViewModel =
-                new ViewModelProvider(this).get(SwiperViewModel.class);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_swiper, container, false);
 
-        binding = FragmentSwiperBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        CardStackView cardStackView = view.findViewById(R.id.card_stack_view);
+        manager = new CardStackLayoutManager(getContext(), new CardStackListener() {
+            @Override
+            public void onCardDragging(Direction direction, float ratio) {}
 
-        final TextView textView = binding.textDashboard;
-        swiperViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+            @Override
+            public void onCardSwiped(Direction direction) {
+                // Vous pouvez gérer les actions après un swipe ici
+            }
+
+            @Override
+            public void onCardRewound() {}
+
+            @Override
+            public void onCardCanceled() {}
+
+            @Override
+            public void onCardAppeared(View view, int position) {}
+
+            @Override
+            public void onCardDisappeared(View view, int position) {}
+        });
+
+        adapter = new CardStackAdapter(createIngredients());
+        cardStackView.setLayoutManager(manager);
+        cardStackView.setAdapter(adapter);
+
+        return view;
+    }
+
+    private List<Ingredient> createIngredients() {
+        List<Ingredient> Ingredients = new ArrayList<>();
+        // Ajoutez vos profils ici, exemple :
+        Ingredients.add(new Ingredient("Nom 1", R.drawable.ic_launcher_background));
+        Ingredients.add(new Ingredient("Nom 2", R.drawable.ic_launcher_background));
+        // et ainsi de suite...
+        return Ingredients;
     }
 
     @Override
