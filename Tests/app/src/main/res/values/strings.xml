@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TestApp</string>
     <string name="title_swiper">Swiper</string>
-    <string name="title_menu">Menu</string>
-    <string name="title_noti">LikeDislike</string>
+    <string name="title_eat">Eat</string>
+    <string name="title_likedislike">LikeDislike</string>
     <string name="title_options">Options</string>
 </resources>

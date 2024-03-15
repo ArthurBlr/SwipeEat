@@ -7,14 +7,15 @@
         android:title="@string/title_swiper"/>
 
     <item
-        android:id="@+id/navigation_menu"
+        android:id="@+id/navigation_eat"
+        android:tag="EatFragment"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_menu" />
+        android:title="@string/title_eat" />
 
     <item
         android:id="@+id/navigation_likedislike"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:title="@string/title_likedislike" />
 
     <item
         android:id="@+id/navigation_options"

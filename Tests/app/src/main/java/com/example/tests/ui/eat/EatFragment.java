@@ -1,4 +1,4 @@
-package com.example.tests.ui.likedislike;
+package com.example.tests.ui.eat;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,42 +7,48 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.constraintlayout.widget.Guideline;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.tests.R;
-import com.example.tests.databinding.FragmentLikedislikeBinding;
+import com.example.tests.databinding.FragmentEatBinding;
 
-public class LikeDislikeFragment extends Fragment {
+public class EatFragment extends Fragment {
 
-    private FragmentLikedislikeBinding binding;
-    private LinearLayout linearLayout;
+    private com.example.tests.databinding.FragmentEatBinding binding;
+
     private int semaineCounter = 2; // Utilisé pour générer un nouvel ID pour chaque semaine
+
+    private ViewGroup linearLayout;
+    // Dans votre activité principale
+
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        LikeDislikeViewModel likeDislikeViewModel =
-                new ViewModelProvider(this).get(LikeDislikeViewModel.class);
+        EatViewModel eatViewModel = new ViewModelProvider(this).get(EatViewModel.class);
 
-        binding = FragmentLikedislikeBinding.inflate(inflater, container, false);
+        binding = FragmentEatBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         // Obtenez une référence au LinearLayout où vous ajouterez les nouveaux éléments
         linearLayout = root.findViewById(R.id.linearLayout);
 
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        System.out.println("tag de ce fragment = " + this.getTag());
+
         // Obtenez une référence au bouton qui ajoute de nouveaux éléments
         Button addButton = root.findViewById(R.id.button);
-        addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() { //FragmentManager{3d88acc in HostCallbacks{3457115}}}
             @Override
             public void onClick(View v) {
                 // Ajouter le bouton en appelant la méthode addButton
@@ -53,7 +59,7 @@ public class LikeDislikeFragment extends Fragment {
         return root;
     }
 
-    private ConstraintLayout createNewConstraintLayout(String buttonText) {
+    private ConstraintLayout createNewConstraintLayout() {
         // Créer le nouvel élément ConstraintLayout
         ConstraintLayout newLayout = new ConstraintLayout(requireContext());
         newLayout.setLayoutParams(new ConstraintLayout.LayoutParams(
@@ -62,46 +68,29 @@ public class LikeDislikeFragment extends Fragment {
         ));
 
         // Créer le bouton
+        int buttonHeightInDp = 100;
         Button button = new Button(requireContext());
         button.setId(View.generateViewId());
         button.setLayoutParams(new ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT
+                ConstraintLayout.LayoutParams.MATCH_PARENT,
+                buttonHeightInDp
         ));
-        button.setText(buttonText);
+        button.setText("Semaine " + semaineCounter);
         button.setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.button));
         newLayout.addView(button);
-
-        // Créer le SwitchCompat
-        SwitchCompat switchCompat = new SwitchCompat(requireContext());
-        switchCompat.setLayoutParams(new ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT
-        ));
-        switchCompat.setId(View.generateViewId());
-        switchCompat.setButtonTintList(ContextCompat.getColorStateList(requireContext(), R.color.button));
-        newLayout.addView(switchCompat);
 
         // Définir les contraintes pour le bouton
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(newLayout);
         constraintSet.connect(button.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
         constraintSet.connect(button.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
-        constraintSet.constrainWidth(button.getId(), ConstraintSet.MATCH_CONSTRAINT);
-        constraintSet.constrainPercentWidth(button.getId(), 0.85f);
-
-        // Définir les contraintes pour le SwitchCompat
-        constraintSet.constrainWidth(switchCompat.getId(), ConstraintSet.MATCH_CONSTRAINT);
-        constraintSet.constrainPercentWidth(switchCompat.getId(), 0.15f);
-        constraintSet.connect(switchCompat.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
-        constraintSet.connect(switchCompat.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-
+        constraintSet.connect(button.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
         constraintSet.applyTo(newLayout);
 
-        // Incrémenter le compteur de semaine pour le prochain bouton
         semaineCounter++;
 
         return newLayout;
+
     }
 
     private static final String BUTTON_COUNT_KEY = "button_count";
@@ -133,13 +122,11 @@ public class LikeDislikeFragment extends Fragment {
         for (int i = 0; i < count; i++) {
             String buttonText = getButton(i);
             if (!buttonText.isEmpty()) {
-                ConstraintLayout newLayout = createNewConstraintLayout(buttonText);
+                ConstraintLayout newLayout = createNewConstraintLayout();
                 linearLayout.addView(newLayout);
             }
         }
     }
-
-
 
     private void addButton(String buttonText) {
         // Enregistrer le texte du bouton
@@ -147,18 +134,14 @@ public class LikeDislikeFragment extends Fragment {
         // Incrémenter le compteur de boutons
         incrementButtonCount();
         // Créer et ajouter le bouton à l'interface utilisateur
-        ConstraintLayout newLayout = createNewConstraintLayout(buttonText);
+        ConstraintLayout newLayout = createNewConstraintLayout();
         linearLayout.addView(newLayout);
     }
 
     public void deleteButtons() {
-        SharedPreferences preferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        preferences.edit().clear().apply();
         linearLayout.removeAllViews();
-        semaineCounter = 2;
         // Effacez également les données stockées si nécessaire
     }
-
     @Override
     public void onResume() {
         super.onResume();

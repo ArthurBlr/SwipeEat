@@ -72,18 +72,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/linearLayout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guidelineButton1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.85" />
 
                 <Button
                     android:id="@+id/button1"
@@ -92,9 +86,9 @@
                     android:backgroundTint="@color/button"
                     android:text="Semaine 1"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/guidelineButton1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.85"/>
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switch1"
@@ -104,43 +98,7 @@
                     app:chipIcon="@color/button"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/guidelineButton1"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guidelineButton2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.85" />
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:backgroundTint="@color/button"
-                    android:text="Semaine 2"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/guidelineButton2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/switch2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/button"
-                    app:chipIcon="@color/button"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/guidelineButton2"
+                    app:layout_constraintWidth_percent="0.15"
                     app:layout_constraintTop_toTopOf="parent" />
 
 

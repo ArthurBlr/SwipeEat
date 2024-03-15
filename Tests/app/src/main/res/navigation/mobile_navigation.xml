@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_eat">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.tests.ui.home.HomeFragment"
+        android:id="@+id/navigation_eat"
+        android:name="com.example.tests.ui.eat.EatFragment"
         android:label="@string/title_swiper"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/fragment_eat" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_swiper"
         android:name="com.example.tests.ui.swiper.SwiperFragment"
-        android:label="@string/title_menu"
+        android:label="@string/title_eat"
         tools:layout="@layout/fragment_swiper" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_likedislike"
         android:name="com.example.tests.ui.likedislike.LikeDislikeFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_likedislike"
         tools:layout="@layout/fragment_likedislike" />
 
     <fragment
         android:id="@+id/navigation_options"
         android:name="com.example.tests.ui.options.OptionsFragment"
         android:label="@string/title_options"
-        tools:layout="@layout/fragment_likedislike" />
+        tools:layout="@layout/fragment_options" />
 
 </navigation>
