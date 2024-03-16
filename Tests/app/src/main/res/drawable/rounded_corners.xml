@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/button"/> <!-- Couleur de fond -->
+    <corners android:radius="50dp"/> <!-- Rayon des coins arrondis -->
+    <!-- Ajoutez cette ligne si vous souhaitez un contour -->
+    <stroke android:width="3dp" android:color="@color/black"/> <!-- Épaisseur et couleur du contour -->
+</shape>

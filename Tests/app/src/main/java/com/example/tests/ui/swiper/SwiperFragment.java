@@ -40,6 +40,7 @@ public class SwiperFragment extends Fragment {
             @Override
             public void onCardSwiped(Direction direction) {
                 // Vous pouvez gérer les actions après un swipe ici
+                System.out.println("Swiped: " + direction.toString());
             }
 
             @Override
