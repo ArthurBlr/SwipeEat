@@ -66,7 +66,7 @@ public class SwiperFragment extends Fragment {
     private List<Ingredient> createIngredients() {
         List<Ingredient> Ingredients = new ArrayList<>();
         // Ajoutez vos profils ici, exemple :
-        Ingredients.add(new Ingredient("Nom 1", R.drawable.ic_launcher_background));
+        Ingredients.add(new Ingredient("Nom jjd d d f df r e er r r rz zr ezr er zer es sr s es ersserersersser se ers ser ers sre ers ser serersers rs ers srers1", R.drawable.ic_launcher_background));
         Ingredients.add(new Ingredient("Nom 2", R.drawable.ic_launcher_background));
         // et ainsi de suite...
         return Ingredients;
