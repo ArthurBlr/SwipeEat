@@ -3,6 +3,7 @@ package com.example.tests.ui.options;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.tests.R;
 import com.example.tests.databinding.FragmentOptionsBinding;
 import com.example.tests.ui.eat.EatFragment;
 import com.example.tests.ui.likedislike.LikeDislikeFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class OptionsFragment extends Fragment {
 
@@ -51,6 +59,23 @@ public class OptionsFragment extends Fragment {
         builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                RequestQueue queue = Volley.newRequestQueue(getContext());
+                String url = "http://10.0.2.2:80/reset";
+
+                JSONObject postData = new JSONObject();
+
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
+                        response -> Log.d("API", "Réponse: " + response),
+                        error -> Log.e("API", "Erreur: " + error)
+                );
+
+                queue.add(jsonObjectRequest);
+
+
+
+
+
                 // Obtenir une référence au gestionnaire de fragments de l'activité parente
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
 
