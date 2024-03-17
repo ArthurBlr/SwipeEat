@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,7 +23,6 @@ import com.example.tests.databinding.FragmentOptionsBinding;
 import com.example.tests.ui.eat.EatFragment;
 import com.example.tests.ui.likedislike.LikeDislikeFragment;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class OptionsFragment extends Fragment {
