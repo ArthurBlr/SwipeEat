@@ -52,8 +52,13 @@ public class SwiperFragment extends Fragment {
 
             @Override
             public void onCardSwiped(Direction direction) {
-                // Vous pouvez gérer les actions après un swipe ici
-                System.out.println("Swiped: " + direction.toString());
+                int position = manager.getTopPosition() - 1; // Ajustez en fonction de votre implémentation
+                Ingredient likedIngredient = adapter.getIngredientAt(position); // Implémentez cette méthode dans votre adapter
+                if (direction == Direction.Right) {
+                    envoyerNomIngredientSwiped(likedIngredient.getName(), true);
+                } else if (direction == Direction.Left) {
+                    envoyerNomIngredientSwiped(likedIngredient.getName(), false);
+                }
             }
 
             @Override
@@ -76,12 +81,38 @@ public class SwiperFragment extends Fragment {
         return view;
     }
 
+    private void envoyerNomIngredientSwiped(String nomIngredient, boolean liked) {
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String url;
+        if (liked) {
+            url = "http://10.0.2.2:80/ingredients/like";
+        }
+        else {
+            url = "http://10.0.2.2:80/ingredients/dislike";
+        }
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("ingredient", nomIngredient); // Assurez-vous que cela correspond à votre schéma d'API
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
+                response -> Log.d("API", "Réponse: " + response),
+                error -> Log.e("API", "Erreur: " + error)
+        );
+
+        queue.add(jsonObjectRequest);
+    }
+
+
     private List<Ingredient> createIngredients() {
         List<Ingredient> Ingredients = new ArrayList<>();
 
 
-        Ingredients.add(new Ingredient("Nom jjd d d f df r e er r r rz zr ezr er zer es sr s es ersserersersser se ers ser ers sre ers ser serersers rs ers srers1", R.drawable.ic_launcher_background));
-        Ingredients.add(new Ingredient("Nom 2", R.drawable.ic_launcher_background));
+        //Ingredients.add(new Ingredient("Nom jjd d d f df r e er r r rz zr ezr er zer es sr s es ersserersersser se ers ser ers sre ers ser serersers rs ers srers1", R.drawable.ic_launcher_background));
+        //Ingredients.add(new Ingredient("Nom 2", R.drawable.ic_launcher_background));
         // et ainsi de suite...
 
         RequestQueue queue = Volley.newRequestQueue(this.getContext());

@@ -14,6 +14,10 @@ import java.util.List;
 public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder> {
     private List<Ingredient> items;
 
+    public Ingredient getIngredientAt(int position) {
+        return items.get(position);
+    }
+
     public CardStackAdapter(List<Ingredient> items) {
         this.items = items;
     }
