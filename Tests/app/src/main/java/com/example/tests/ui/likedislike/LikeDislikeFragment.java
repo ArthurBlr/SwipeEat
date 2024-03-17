@@ -29,8 +29,6 @@ public class LikeDislikeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        LikeDislikeViewModel likeDislikeViewModel =
-                new ViewModelProvider(this).get(LikeDislikeViewModel.class);
 
         binding = FragmentLikedislikeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

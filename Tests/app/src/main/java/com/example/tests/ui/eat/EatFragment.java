@@ -33,7 +33,6 @@ public class EatFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        EatViewModel eatViewModel = new ViewModelProvider(this).get(EatViewModel.class);
 
         binding = FragmentEatBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
