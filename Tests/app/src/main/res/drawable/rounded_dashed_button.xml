@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- dashed_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Définissez la couleur de fond -->
+    <solid android:color="@android:color/background_light" />
+    <!-- Définissez la couleur de la bordure -->
+    <stroke
+        android:width="4dp"
+        android:color="@color/button"
+        android:dashWidth="10dp"
+        android:dashGap="10dp"/>
+    <corners android:radius="8dp" />
+</shape>

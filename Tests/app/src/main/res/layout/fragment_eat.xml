@@ -7,24 +7,6 @@
     android:background="@color/background"
     tools:context=".ui.eat.EatFragment">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
-        app:elevation="20dp"
-        app:itemBackground="@color/button"
-        app:itemIconTint="@color/light_green"
-        app:itemTextColor="@color/background"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineStart"
         android:layout_width="wrap_content"
@@ -46,44 +28,170 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.05" />
 
-
     <Button
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:backgroundTint="@color/button"
-        android:text="+"
-        app:layout_constraintBottom_toTopOf="@id/guidelineTop"
+        android:text="@string/txt_butt_charger"
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/button_save" />
+
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/button"
+        android:text="@string/txt_butt_save"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_ajout"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_dashed_button"
+        android:text="@string/txt_butt_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart" />
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/nav_view1"
-        app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
-        app:layout_constraintStart_toEndOf="@id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@id/button">
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_ajout"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/button"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/linearLayout">
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/button2"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:backgroundTint="@color/button"
-                android:text="Semaine 1" />
+                android:layout_height="282dp"
+                android:background="@color/button">
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_suppr_jour"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="48dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/close_button"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="@+id/textView" />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_matin"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/rounded_dashed_button"
+                    android:text="@string/txt_butt_add"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.8" />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_midi"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_dashed_button"
+                    android:text="@string/txt_butt_add"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_matin"
+                    app:layout_constraintWidth_percent="0.8" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_soir"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/rounded_dashed_button"
+                    android:text="@string/txt_butt_add"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_midi"
+                    app:layout_constraintWidth_percent="0.8" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_suppr_matin"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="13dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/close_button"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_matin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/button_matin"
+                    app:layout_constraintTop_toTopOf="@+id/button_matin" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_suppr_midi"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="13dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/close_button"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_midi"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/button_midi"
+                    app:layout_constraintTop_toTopOf="@+id/button_midi" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_suppr_soir"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="13dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/close_button"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_soir"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/button_soir"
+                    app:layout_constraintTop_toTopOf="@+id/button_soir" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="@string/name_day"
+                    android:textColor="@color/background"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toTopOf="@+id/button_matin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </ScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
