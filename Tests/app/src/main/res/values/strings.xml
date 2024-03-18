@@ -4,4 +4,8 @@
     <string name="title_eat">Eat</string>
     <string name="title_likedislike">LikeDislike</string>
     <string name="title_options">Options</string>
+    <string name="txt_butt_charger">Charger</string>
+    <string name="txt_butt_save">Sauvegarder</string>
+    <string name="txt_butt_add">+</string>
+
 </resources>

@@ -6,7 +6,7 @@
     <solid android:color="@android:color/background_light" />
     <!-- Définissez la couleur de la bordure -->
     <stroke
-        android:width="5dp"
+        android:width="4dp"
         android:color="@color/button"
         android:dashWidth="10dp"
         android:dashGap="10dp"/>
