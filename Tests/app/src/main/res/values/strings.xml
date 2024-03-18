@@ -7,5 +7,6 @@
     <string name="txt_butt_charger">Charger</string>
     <string name="txt_butt_save">Sauvegarder</string>
     <string name="txt_butt_add">+</string>
+    <string name="name_day">Jour</string>
 
 </resources>
