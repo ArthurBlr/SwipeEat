@@ -6,18 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import androidx.lifecycle.ViewModelProvider; // Import manquant pour ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tests.R;
-import com.example.tests.ui.eat.DayMeal;
-import com.example.tests.ui.eat.DayMealAdapter;
 
 import java.util.ArrayList;
 
-public class EatFragment extends Fragment implements DayMealAdapter.OnDayRemovedListener {
+public class EatFragment extends Fragment {
 
-    private ArrayList<DayMeal> dayMeals = new ArrayList<>();
+    private DayMealViewModel dayMealViewModel;
     private DayMealAdapter adapter;
 
     @Override
@@ -25,38 +24,37 @@ public class EatFragment extends Fragment implements DayMealAdapter.OnDayRemoved
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_eat, container, false);
 
+        // Initialisation du ViewModel
+        dayMealViewModel = new ViewModelProvider(this).get(DayMealViewModel.class);
+
         // Initialisation de RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.listeRepas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new DayMealAdapter(dayMeals, this);
+
+        // Initialisation de l'adaptateur avec une liste vide. La liste sera mise à jour via LiveData.
+        adapter = new DayMealAdapter(new ArrayList<>(), position -> {
+            dayMealViewModel.removeDayMeal(position); // Implémentation modifiée pour utiliser la méthode dans ViewModel
+        });
         recyclerView.setAdapter(adapter);
+
+        // Observer LiveData dans le ViewModel
+        dayMealViewModel.getDayMeals().observe(getViewLifecycleOwner(), newMeals -> {
+            // Met à jour l'adaptateur avec les nouvelles données
+            adapter.setDayMeals(newMeals);
+        });
 
         // Gestion du clic sur le bouton ajouter
         Button addButton = view.findViewById(R.id.button_ajouter);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int newDayNumber = dayMeals.size() + 1; // Détermine le numéro du nouveau jour
-                String dayTitle = "Jour " + newDayNumber;
-                DayMeal newDayMeal = new DayMeal(dayTitle);
-                adapter.addDayMeal(newDayMeal);
-            }
+        addButton.setOnClickListener(v -> {
+            // Calcul du nouveau numéro de jour basé sur la taille actuelle de la liste dans le ViewModel
+            int newDayNumber = dayMealViewModel.getDayMeals().getValue() != null ? dayMealViewModel.getDayMeals().getValue().size() + 1 : 1;
+            String dayTitle = "Jour " + newDayNumber;
+            DayMeal newDayMeal = new DayMeal(dayTitle);
+            dayMealViewModel.addDayMeal(newDayMeal); // Ajoute le nouveau jour via le ViewModel
         });
 
         return view;
     }
 
-    @Override
-    public void onDayRemoved(int position) {
-        dayMeals.remove(position); // Supprime l'élément de la liste des données
-        adapter.notifyItemRemoved(position); // Notifie que l'élément a été supprimé de l'adaptateur
-
-        // Met à jour les titres des jours restants pour refléter la nouvelle séquence
-        for (int i = position; i < dayMeals.size(); i++) {
-            DayMeal dayMeal = dayMeals.get(i);
-            String updatedDayTitle = "Jour " + (i + 1);
-            dayMeal.setDayTitle(updatedDayTitle);
-            adapter.notifyItemChanged(i); // Notifie que l'élément a été mis à jour dans l'adaptateur
-        }
-    }
+    // Suppression de onDayRemoved puisque la gestion de la suppression est maintenant dans l'adaptateur et manipulée via le ViewModel
 }

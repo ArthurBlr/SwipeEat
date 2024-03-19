@@ -10,19 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tests.R;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class DayMealAdapter extends RecyclerView.Adapter<DayMealAdapter.ViewHolder> {
 
     private ArrayList<DayMeal> dayMeals;
-    private OnDayRemovedListener listener;
+    private Consumer<Integer> onDayRemovedListener;
 
-    public interface OnDayRemovedListener {
-        void onDayRemoved(int position);
-    }
-
-    public DayMealAdapter(ArrayList<DayMeal> dayMeals, OnDayRemovedListener listener) {
+    public DayMealAdapter(ArrayList<DayMeal> dayMeals, Consumer<Integer> onDayRemovedListener) {
         this.dayMeals = dayMeals;
-        this.listener = listener;
+        this.onDayRemovedListener = onDayRemovedListener;
     }
 
     @NonNull
@@ -33,28 +30,27 @@ public class DayMealAdapter extends RecyclerView.Adapter<DayMealAdapter.ViewHold
     }
 
     @Override
-    public int getItemCount() {
-        return dayMeals.size();
-    }
-
-    @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DayMeal dayMeal = dayMeals.get(position);
         holder.dayTitle.setText(dayMeal.getDayTitle());
 
-        holder.removeDayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(listener != null) {
-                    listener.onDayRemoved(position);
-                }
-            }
-        });
+        // Utilisation de Consumer<Integer> pour gérer le clic de suppression
+        holder.removeDayButton.setOnClickListener(v -> onDayRemovedListener.accept(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return dayMeals.size();
+    }
+
+    public void setDayMeals(ArrayList<DayMeal> dayMeals) {
+        this.dayMeals = dayMeals;
+        notifyDataSetChanged(); // Notifie que les données ont changé
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView dayTitle;
-        public View removeDayButton;
+        TextView dayTitle;
+        View removeDayButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -66,5 +62,12 @@ public class DayMealAdapter extends RecyclerView.Adapter<DayMealAdapter.ViewHold
     public void addDayMeal(DayMeal dayMeal) {
         dayMeals.add(dayMeal);
         notifyItemInserted(dayMeals.size() - 1);
+    }
+
+    public void removeDayMeal(int position) {
+        if (position >= 0 && position < dayMeals.size()) {
+            dayMeals.remove(position);
+            notifyItemRemoved(position);
+        }
     }
 }
