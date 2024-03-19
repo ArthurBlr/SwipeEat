@@ -67,25 +67,6 @@ public class OptionsFragment extends Fragment {
                 );
 
                 queue.add(jsonObjectRequest);
-
-
-
-
-
-                // Obtenir une référence au gestionnaire de fragments de l'activité parente
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-
-                // Supprimer les boutons stockés dans EatFragment
-                EatFragment eatFragment = (EatFragment) fragmentManager.findFragmentById(R.id.navigation_eat);
-                if (eatFragment != null) {
-                    eatFragment.deleteLayout();
-                }
-
-                // Supprimer les boutons stockés dans LikeDislikeFragment
-                LikeDislikeFragment likeDislikeFragment = (LikeDislikeFragment) fragmentManager.findFragmentById(R.id.navigation_likedislike);
-                if (likeDislikeFragment != null) {
-                    //ikeDislikeFragment.deleteLayout();
-                }
             }
         });
         builder.setNegativeButton("Non", null); // Si l'utilisateur annule

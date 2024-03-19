@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@color/button">
+
+    <!-- Conteneur pour le titre du jour et le bouton supprimer -->
+        <RelativeLayout
+            android:id="@+id/dayTitleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:id="@+id/dayTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jour"
+                android:textSize="24sp"
+                android:textColor="#FFFFFF"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"/>
+
+            <Button
+                android:id="@+id/removeDayButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X"
+                android:backgroundTint="@color/red"
+                android:textColor="#FFFFFF"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/dayTitleContainer"
+        android:layout_marginTop="24dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/btnMatin"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="@string/matin"
+                android:layout_toStartOf="@+id/removeButtonMatin"
+                android:backgroundTint="@color/white"
+                android:padding="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/removeButtonMatin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X"
+                android:backgroundTint="@color/red"
+                android:padding="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/midi"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="@string/midi"
+                android:layout_toStartOf="@+id/removeButtonMidi"
+                android:backgroundTint="@color/white"
+                android:padding="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/removeButtonMidi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X"
+                android:backgroundTint="@color/red"
+                android:padding="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/soir"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="@string/soir"
+                android:layout_toStartOf="@+id/removeButtonSoir"
+                android:backgroundTint="@color/white"
+                android:padding="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/removeButtonSoir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:text="X"
+                android:padding="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
