@@ -50,8 +50,8 @@ public class SwiperFragment extends Fragment {
 
             @Override
             public void onCardSwiped(Direction direction) {
-                int position = manager.getTopPosition() - 1; // Ajustez en fonction de votre implémentation
-                Ingredient likedIngredient = adapter.getIngredientAt(position); // Implémentez cette méthode dans votre adapter
+                int position = manager.getTopPosition() - 1;
+                Ingredient likedIngredient = adapter.getIngredientAt(position);
                 if (direction == Direction.Right) {
                     envoyerNomIngredientSwiped(likedIngredient.getName(), true);
                 } else if (direction == Direction.Left) {
@@ -91,7 +91,7 @@ public class SwiperFragment extends Fragment {
 
         JSONObject postData = new JSONObject();
         try {
-            postData.put("ingredient", nomIngredient); // Assurez-vous que cela correspond à votre schéma d'API
+            postData.put("ingredient", nomIngredient);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -107,11 +107,6 @@ public class SwiperFragment extends Fragment {
 
     private List<Ingredient> createIngredients() {
         List<Ingredient> Ingredients = new ArrayList<>();
-
-
-        //Ingredients.add(new Ingredient("Nom jjd d d f df r e er r r rz zr ezr er zer es sr s es ersserersersser se ers ser ers sre ers ser serersers rs ers srers1", R.drawable.ic_launcher_background));
-        //Ingredients.add(new Ingredient("Nom 2", R.drawable.ic_launcher_background));
-        // et ainsi de suite...
 
         RequestQueue queue = Volley.newRequestQueue(this.getContext());
 
