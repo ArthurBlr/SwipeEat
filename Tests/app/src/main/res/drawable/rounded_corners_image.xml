@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/white_blue"/> <!-- Couleur de fond -->
+    <solid android:color="@color/background"/> <!-- Couleur de fond -->
     <!-- Définissez les coins arrondis -->
     <corners android:topLeftRadius="50dp" android:topRightRadius="50dp" android:bottomRightRadius="0dp" android:bottomLeftRadius="0dp"/>
     <!-- Définir le contour partout sauf au bottom -->

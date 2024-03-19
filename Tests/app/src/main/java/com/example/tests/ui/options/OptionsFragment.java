@@ -78,7 +78,7 @@ public class OptionsFragment extends Fragment {
                 // Supprimer les boutons stockés dans EatFragment
                 EatFragment eatFragment = (EatFragment) fragmentManager.findFragmentById(R.id.navigation_eat);
                 if (eatFragment != null) {
-                    eatFragment.deleteButtons();
+                    eatFragment.deleteLayout();
                 }
 
                 // Supprimer les boutons stockés dans LikeDislikeFragment

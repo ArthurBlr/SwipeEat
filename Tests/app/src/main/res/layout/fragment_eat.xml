@@ -49,21 +49,22 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_ajout"
+        android:id="@+id/button_ajout_jour"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/rounded_dashed_button"
         android:text="@string/txt_butt_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/guidelineStart" />
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_ajout"
+        app:layout_constraintBottom_toTopOf="@+id/button_ajout_jour"
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
@@ -103,7 +104,6 @@
                     android:layout_marginTop="60dp"
                     android:background="@drawable/rounded_dashed_button"
                     android:text="@string/txt_butt_add"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.8" />

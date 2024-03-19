@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Définissez la couleur de fond -->
+    <solid android:color="@color/button" />
+    <!-- Définissez la couleur de la bordure -->
+    <stroke
+        android:width="5dp"
+        android:color="@color/background"
+        android:dashWidth="10dp"/>
+    <corners android:radius="8dp" />
+</shape>
