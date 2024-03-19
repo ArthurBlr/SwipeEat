@@ -46,13 +46,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnMatin"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="@string/matin"
                 android:layout_toStartOf="@+id/removeButtonMatin"
-                android:backgroundTint="@color/white"
+                android:background="@drawable/rounded_dashed_button"
                 android:padding="10dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"/>
@@ -73,13 +73,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/midi"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="@string/midi"
                 android:layout_toStartOf="@+id/removeButtonMidi"
-                android:backgroundTint="@color/white"
+                android:background="@drawable/rounded_dashed_button"
                 android:padding="10dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"/>
@@ -100,13 +100,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/soir"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="@string/soir"
                 android:layout_toStartOf="@+id/removeButtonSoir"
-                android:backgroundTint="@color/white"
+                android:background="@drawable/rounded_dashed_button"
                 android:padding="10dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"/>

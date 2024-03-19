@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Couche pour le cercle -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/button" />
+        </shape>
+    </item>
+    <!-- Couche pour la croix -->
+    <item android:drawable="@drawable/baseline_heart_24" android:gravity="center"/>
+</layer-list>

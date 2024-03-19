@@ -49,12 +49,12 @@
         app:layout_constraintBottom_toTopOf="@id/button_ajouter"
         tools:listitem="@layout/item_day" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_ajouter"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:backgroundTint="@color/button"
-        android:text="@string/txt_butt_add"
+        android:background="@drawable/rounded_dashed_button"
+        android:hint="@string/txt_butt_add"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
