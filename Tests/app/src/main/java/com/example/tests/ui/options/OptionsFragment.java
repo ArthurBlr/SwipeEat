@@ -84,7 +84,7 @@ public class OptionsFragment extends Fragment {
                 // Supprimer les boutons stockés dans LikeDislikeFragment
                 LikeDislikeFragment likeDislikeFragment = (LikeDislikeFragment) fragmentManager.findFragmentById(R.id.navigation_likedislike);
                 if (likeDislikeFragment != null) {
-                    likeDislikeFragment.deleteButtons();
+                    //ikeDislikeFragment.deleteLayout();
                 }
             }
         });

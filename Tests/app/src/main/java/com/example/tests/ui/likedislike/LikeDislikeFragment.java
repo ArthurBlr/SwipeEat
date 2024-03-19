@@ -114,7 +114,7 @@ public class LikeDislikeFragment extends Fragment {
                         allIngredients.put(ingredient, false);
                     }
 
-                    // Mise à jour après le chargement des données
+                    // Mise à Jour après le chargement des données
                     filteredIngredients.putAll(allIngredients);
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -122,7 +122,7 @@ public class LikeDislikeFragment extends Fragment {
                             adapter.updateIngredients(filteredIngredients);
                             adapter.notifyDataSetChanged();
 
-                            Log.e("API Response", "Mise à jour des ingrédients");
+                            Log.e("API Response", "Mise à Jour des ingrédients");
                             Log.e("Ingrédients chargés", allIngredients.toString());
                         }
                     });
@@ -146,7 +146,7 @@ public class LikeDislikeFragment extends Fragment {
     private void filterIngredients(String query) {
         // Vérifier si la chaîne de recherche est vide
         if (query == null || query.trim().isEmpty() || query.length() == 0) {
-            // Si la chaîne de recherche est vide, mettre à jour l'adapter avec la liste complète
+            // Si la chaîne de recherche est vide, mettre à Jour l'adapter avec la liste complète
             adapter.updateIngredients(this.allIngredients);
         } else {
             // Sinon, créer une nouvelle map pour stocker les résultats filtrés
@@ -163,7 +163,7 @@ public class LikeDislikeFragment extends Fragment {
                 }
             }
 
-            // Mettre à jour l'adapter avec les ingrédients filtrés
+            // Mettre à Jour l'adapter avec les ingrédients filtrés
             adapter.updateIngredients(filteredIngredients);
         }
     }
@@ -187,7 +187,7 @@ public class LikeDislikeFragment extends Fragment {
                     // Traitez ici la réponse, si nécessaire
                 },
                 error -> {
-                    Log.e("Volley", "Erreur lors de la mise à jour de l'ingrédient: " + error.toString());
+                    Log.e("Volley", "Erreur lors de la mise à Jour de l'ingrédient: " + error.toString());
                     // Gérez ici l'erreur
                 }) {
 

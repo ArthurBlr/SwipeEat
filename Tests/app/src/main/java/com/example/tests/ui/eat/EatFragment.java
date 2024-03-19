@@ -16,9 +16,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.tests.R;
 import com.example.tests.databinding.FragmentEatBinding;
@@ -27,7 +26,7 @@ public class EatFragment extends Fragment {
 
     private com.example.tests.databinding.FragmentEatBinding binding;
 
-    private int semaineCounter = 2; // Utilisé pour générer un nouvel ID pour chaque semaine
+    private int dayCounter = 2; // Utilisé pour générer un nouvel ID pour chaque semaine
 
     private ViewGroup linearLayout;
     // Dans votre activité principale
@@ -44,19 +43,18 @@ public class EatFragment extends Fragment {
         // Obtenez une référence au LinearLayout où vous ajouterez les nouveaux éléments
         linearLayout = root.findViewById(R.id.linearLayout);
 
-
         // Obtenez une référence au bouton qui ajoute de nouveaux éléments
         Button addButton = root.findViewById(R.id.button_ajout_jour);
         addButton.setOnClickListener(new View.OnClickListener() { //FragmentManager{3d88acc in HostCallbacks{3457115}}}
             @Override
             public void onClick(View v) {
                 // Ajouter le bouton en appelant la méthode addButton
-                addConstraintLayout(createNewConstraintLayout());
+                addConstraintLayout(null);
             }
         });
 
-        Button deleteButton = root.findViewById(R.id.button_suppr_jour);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+        Button addButton2 = root.findViewById(R.id.button_charger);
+        addButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Ajouter le bouton en appelant la méthode addButton
@@ -64,10 +62,15 @@ public class EatFragment extends Fragment {
             }
         });
 
+
+
+
+
+
         return root;
     }
 
-    private ConstraintLayout createNewConstraintLayout() {
+    private ConstraintLayout createNewConstraintLayout(Jour jour) {
         ConstraintLayout newLayout = new ConstraintLayout(requireContext());
         newLayout.setLayoutParams(new ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.MATCH_PARENT,
@@ -75,57 +78,58 @@ public class EatFragment extends Fragment {
         ));
         newLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.button));
 
-        AppCompatButton buttonSupprJour = createButtonSuppr(R.id.button_suppr_jour, newLayout);
-        buttonSupprJour.setOnClickListener(new View.OnClickListener() { //FragmentManager{3d88acc in HostCallbacks{3457115}}}
+        AppCompatButton buttonSupprJour = createButtonSuppr(ViewCompat.generateViewId(), newLayout);
+        buttonSupprJour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Ajouter le bouton en appelant la méthode addButton
+                // Supprimer le layout
                 newLayout.removeAllViews();
                 linearLayout.removeView(newLayout);
-                // Effacez également les données stockées si nécessaire
+                // Effacer les données stockées si nécessaire
                 SharedPreferences preferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                 preferences.edit().remove("constraint_layout_" + getConstraintLayoutCount()).apply();
             }
         });
         newLayout.addView(buttonSupprJour);
-        AppCompatButton buttonMatin = createButtonAdd(R.id.button_matin, R.drawable.rounded_dashed_button, newLayout);
-        AppCompatButton buttonMidi = createButtonAdd(R.id.button_midi, R.drawable.rounded_dashed_button, newLayout);
-        AppCompatButton buttonSoir = createButtonAdd(R.id.button_soir, R.drawable.rounded_dashed_button, newLayout);
-        AppCompatButton buttonSupprMatin = createButtonSuppr(R.id.button_suppr_matin, newLayout);
-        buttonSupprMatin.setOnClickListener(new View.OnClickListener() { //FragmentManager{3d88acc in HostCallbacks{3457115}}}
+        AppCompatButton buttonMatin = createButtonAdd(ViewCompat.generateViewId(), newLayout,jour.getNomPlatMatin());
+        AppCompatButton buttonMidi = createButtonAdd(ViewCompat.generateViewId(), newLayout,jour.getNomPlatMidi());
+        AppCompatButton buttonSoir = createButtonAdd(ViewCompat.generateViewId(), newLayout,jour.getNomPlatSoir());
+        AppCompatButton buttonSupprMatin = createButtonSuppr(ViewCompat.generateViewId(), newLayout);
+        buttonSupprMatin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Ajouter le bouton en appelant la méthode addButton
+                // Modifier le bouton en fonction de l'événement
                 buttonMatin.setText(R.string.txt_butt_add);
                 buttonMatin.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.rounded_dashed_button));
             }
         });
         newLayout.addView(buttonSupprMatin);
-        AppCompatButton buttonSupprMidi = createButtonSuppr(R.id.button_suppr_midi, newLayout);
-        buttonSupprMidi.setOnClickListener(new View.OnClickListener() { //FragmentManager{3d88acc in HostCallbacks{3457115}}}
+        AppCompatButton buttonSupprMidi = createButtonSuppr(ViewCompat.generateViewId(), newLayout);
+        buttonSupprMidi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Ajouter le bouton en appelant la méthode addButton
+                // Modifier le bouton en fonction de l'événement
                 buttonMidi.setText(R.string.txt_butt_add);
                 buttonMidi.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.rounded_dashed_button));
             }
         });
         newLayout.addView(buttonSupprMidi);
-        AppCompatButton buttonSupprSoir = createButtonSuppr(R.id.button_suppr_soir, newLayout);
-        buttonSupprSoir.setOnClickListener(new View.OnClickListener() { //FragmentManager{3d88acc in HostCallbacks{3457115}}}
+        AppCompatButton buttonSupprSoir = createButtonSuppr(ViewCompat.generateViewId(), newLayout);
+        buttonSupprSoir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Ajouter le bouton en appelant la méthode addButton
+                // Modifier le bouton en fonction de l'événement
                 buttonSoir.setText(R.string.txt_butt_add);
                 buttonSoir.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.rounded_dashed_button));
             }
         });
         newLayout.addView(buttonSupprSoir);
+
         TextView textView = new TextView(requireContext());
-        textView.setId(R.id.textView);
+        textView.setId(ViewCompat.generateViewId());
         textView.setLayoutParams(new ConstraintLayout.LayoutParams(0, 0));
         textView.setGravity(Gravity.CENTER);
-        textView.setText("Jour " + semaineCounter);
+        textView.setText("Jour " + dayCounter);
         textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.background));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         newLayout.addView(textView);
@@ -136,62 +140,58 @@ public class EatFragment extends Fragment {
         constraintSet.connect(textView.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
         constraintSet.connect(textView.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP);
         constraintSet.connect(textView.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-        constraintSet.connect(textView.getId(), ConstraintSet.BOTTOM, R.id.button_matin, ConstraintSet.TOP);
+        constraintSet.connect(textView.getId(), ConstraintSet.BOTTOM, buttonMatin.getId(), ConstraintSet.TOP);
         constraintSet.constrainPercentWidth(textView.getId(), 0.3f);
 
 
-        constraintSet.connect(buttonSupprJour.getId(), ConstraintSet.START, R.id.textView, ConstraintSet.END, dpToPx(40));
-        constraintSet.connect(buttonSupprJour.getId(), ConstraintSet.TOP, R.id.textView, ConstraintSet.TOP, dpToPx(10));
+        constraintSet.connect(buttonSupprJour.getId(), ConstraintSet.START, textView.getId(), ConstraintSet.END, dpToPx(40));
+        constraintSet.connect(buttonSupprJour.getId(), ConstraintSet.TOP, textView.getId(), ConstraintSet.TOP, dpToPx(10));
         constraintSet.connect(buttonSupprJour.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, dpToPx(48));
-        constraintSet.connect(buttonSupprJour.getId(), ConstraintSet.BOTTOM, R.id.textView, ConstraintSet.BOTTOM, dpToPx(10));
+        constraintSet.connect(buttonSupprJour.getId(), ConstraintSet.BOTTOM, textView.getId(), ConstraintSet.BOTTOM, dpToPx(10));
 
         constraintSet.connect(buttonMatin.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, dpToPx(5));
         constraintSet.connect(buttonMatin.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, dpToPx(60));
         constraintSet.constrainPercentWidth(buttonMatin.getId(), 0.80f);
 
-
-
         constraintSet.connect(buttonMidi.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, dpToPx(5));
         constraintSet.connect(buttonMidi.getId(), ConstraintSet.TOP, buttonMatin.getId(), ConstraintSet.BOTTOM, dpToPx(5));
         constraintSet.constrainPercentWidth(buttonMidi.getId(), 0.80f);
-
 
         constraintSet.connect(buttonSoir.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, dpToPx(5));
         constraintSet.connect(buttonSoir.getId(), ConstraintSet.TOP, buttonMidi.getId(), ConstraintSet.BOTTOM, dpToPx(5));
         constraintSet.constrainPercentWidth(buttonSoir.getId(), 0.80f);
 
-
-        constraintSet.connect(buttonSupprMatin.getId(), ConstraintSet.START, R.id.button_matin, ConstraintSet.END , dpToPx(15));
-        constraintSet.connect(buttonSupprMatin.getId(), ConstraintSet.TOP, R.id.button_matin, ConstraintSet.TOP, dpToPx(10));
+        constraintSet.connect(buttonSupprMatin.getId(), ConstraintSet.START, buttonMatin.getId(), ConstraintSet.END , dpToPx(15));
+        constraintSet.connect(buttonSupprMatin.getId(), ConstraintSet.TOP, buttonMatin.getId(), ConstraintSet.TOP, dpToPx(10));
         constraintSet.connect(buttonSupprMatin.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, dpToPx(13));
-        constraintSet.connect(buttonSupprMatin.getId(), ConstraintSet.BOTTOM, R.id.button_matin, ConstraintSet.BOTTOM, dpToPx(10));
+        constraintSet.connect(buttonSupprMatin.getId(), ConstraintSet.BOTTOM, buttonMatin.getId(), ConstraintSet.BOTTOM, dpToPx(10));
 
 
-        constraintSet.connect(buttonSupprMidi.getId(), ConstraintSet.START, R.id.button_midi, ConstraintSet.END , dpToPx(15));
-        constraintSet.connect(buttonSupprMidi.getId(), ConstraintSet.TOP, R.id.button_midi, ConstraintSet.TOP, dpToPx(10));
+        constraintSet.connect(buttonSupprMidi.getId(), ConstraintSet.START, buttonMidi.getId(), ConstraintSet.END , dpToPx(15));
+        constraintSet.connect(buttonSupprMidi.getId(), ConstraintSet.TOP,buttonMidi.getId(), ConstraintSet.TOP, dpToPx(10));
         constraintSet.connect(buttonSupprMidi.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, dpToPx(13));
-        constraintSet.connect(buttonSupprMidi.getId(), ConstraintSet.BOTTOM, R.id.button_midi, ConstraintSet.BOTTOM, dpToPx(10));
+        constraintSet.connect(buttonSupprMidi.getId(), ConstraintSet.BOTTOM, buttonMidi.getId(), ConstraintSet.BOTTOM, dpToPx(10));
 
 
-        constraintSet.connect(buttonSupprSoir.getId(), ConstraintSet.START, R.id.button_soir, ConstraintSet.END , dpToPx(15));
-        constraintSet.connect(buttonSupprSoir.getId(), ConstraintSet.TOP, R.id.button_soir, ConstraintSet.TOP, dpToPx(10));
+        constraintSet.connect(buttonSupprSoir.getId(), ConstraintSet.START, buttonSoir.getId(), ConstraintSet.END , dpToPx(15));
+        constraintSet.connect(buttonSupprSoir.getId(), ConstraintSet.TOP, buttonSoir.getId(), ConstraintSet.TOP, dpToPx(10));
         constraintSet.connect(buttonSupprSoir.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, dpToPx(13));
-        constraintSet.connect(buttonSupprSoir.getId(), ConstraintSet.BOTTOM, R.id.button_soir, ConstraintSet.BOTTOM, dpToPx(10));
+        constraintSet.connect(buttonSupprSoir.getId(), ConstraintSet.BOTTOM, buttonSoir.getId(), ConstraintSet.BOTTOM, dpToPx(10));
 
 
         constraintSet.applyTo(newLayout);
 
-        semaineCounter++;
+        dayCounter++;
 
         return newLayout;
     }
 
-    private AppCompatButton createButtonAdd(int id, int backgroundResource, ConstraintLayout layout) {
+    private AppCompatButton createButtonAdd(int id, ConstraintLayout layout,int nom_plat) {
         AppCompatButton button = new AppCompatButton(requireContext());
         button.setId(id);
         button.setLayoutParams(new ConstraintLayout.LayoutParams(0, dpToPx(60)));
-        button.setText(getString(R.string.txt_butt_add));
-        button.setBackground(ContextCompat.getDrawable(requireContext(), backgroundResource));
+        button.setText(getString(nom_plat));
+        button.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.rounded_dashed_button));
         //event listener
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,9 +234,12 @@ public class EatFragment extends Fragment {
         preferences.edit().putInt(CONSTRAINT_LAYOUT_COUNT_KEY, count).apply();
     }
 
-    private void saveConstraintLayout(ConstraintLayout layout, int index) {
+    private void saveConstraintLayout(ConstraintLayout layout,int index, Jour jour) {
         SharedPreferences preferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        preferences.edit().putString("constraint_layout_" + index,  ConstraintLayoutSerializer.serializeConstraintLayout(layout)).apply();
+        System.out.println("jour : " + jour.getNumeroJour());
+        // Transformer mon jour en string
+        String jourJson = jour.toJson();
+        preferences.edit().putString("constraint_layout_" + index, jourJson).apply();
     }
 
     private String getConstraintLayout(int index) {
@@ -247,9 +250,13 @@ public class EatFragment extends Fragment {
     private void loadConstraintLayouts() {
         int count = getConstraintLayoutCount();
         for (int i = 0; i < count; i++) {
-            String serializedLayout = getConstraintLayout(i);
-            if (!serializedLayout.isEmpty()) {
-                ConstraintLayout layout =  ConstraintLayoutSerializer.deserializeConstraintLayout(serializedLayout, requireContext());
+            SharedPreferences preferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            String jourJson = preferences.getString("constraint_layout_" + i, "");
+            if (!jourJson.isEmpty()) {
+                // Convertir la chaîne JSON en objet Jour
+                Jour jour = Jour.fromJson(jourJson);
+                // Créer le ConstraintLayout avec les informations du jour
+                ConstraintLayout layout = createNewConstraintLayout(jour);
                 if (layout != null) {
                     linearLayout.addView(layout);
                 }
@@ -257,13 +264,20 @@ public class EatFragment extends Fragment {
         }
     }
 
-    private void addConstraintLayout(ConstraintLayout layout) {
-        // Enregistrer le layout
-        saveConstraintLayout(layout, getConstraintLayoutCount());
-        // Incrémenter le compteur de layouts
-        incrementConstraintLayoutCount();
-        // Ajouter le layout à l'interface utilisateur
-        linearLayout.addView(layout);
+    private void addConstraintLayout(Jour jour) {
+        if (jour == null) {
+            jour = new Jour(dayCounter);
+        }
+        // Créer le ConstraintLayout avec les informations du jour
+        ConstraintLayout layout = createNewConstraintLayout(jour);
+        if (layout != null) {
+            // Enregistrer le layout
+            saveConstraintLayout(layout, getConstraintLayoutCount(), jour);
+            // Incrémenter le compteur de layouts
+            incrementConstraintLayoutCount();
+            // Ajouter le layout à l'interface utilisateur
+            linearLayout.addView(layout);
+        }
     }
 
     public void deleteLayout() {
@@ -271,7 +285,7 @@ public class EatFragment extends Fragment {
         // Effacez également les données stockées si nécessaire
         SharedPreferences preferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         preferences.edit().clear().apply();
-        semaineCounter = 1;
+        dayCounter = 1;
     }
     @Override
     public void onResume() {

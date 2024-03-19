@@ -38,7 +38,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         String ingredient = ingredients.get(position);
         holder.ingredientName.setText(ingredient);
         holder.ingredientSwitch.setOnCheckedChangeListener(null);
-        // Mettre à jour l'état du switch si nécessaire
+        // Mettre à Jour l'état du switch si nécessaire
         holder.ingredientSwitch.setChecked(this.ingredients.get(ingredient));
         holder.ingredientSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(listener != null) {
