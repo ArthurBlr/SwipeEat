@@ -17,6 +17,10 @@ public class DayMealViewModel extends ViewModel {
         return dayMeals;
     }
 
+    public void setDayMeals(ArrayList<DayMeal> dayMeals) {
+        this.dayMeals.setValue(dayMeals);
+    }
+
     public void addDayMeal(DayMeal dayMeal) {
         ArrayList<DayMeal> currentMeals = dayMeals.getValue();
         if (currentMeals != null) {

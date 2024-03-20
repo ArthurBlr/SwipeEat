@@ -25,8 +25,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.function.Consumer;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class DayMealAdapter extends RecyclerView.Adapter<DayMealAdapter.ViewHolder> {
 
@@ -191,5 +195,16 @@ public class DayMealAdapter extends RecyclerView.Adapter<DayMealAdapter.ViewHold
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         context.startActivity(intent);
         Log.e("Button", "Matin");
+    }
+
+    public String toJson() {
+        Gson gson = new Gson();
+        return gson.toJson(dayMeals);
+    }
+
+    public ArrayList<DayMeal> fromJson(String json) {
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<DayMeal>>() {}.getType();
+        return gson.fromJson(json, type);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.tests.ui.eat;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
@@ -25,6 +26,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class EatFragment extends Fragment {
@@ -67,5 +73,50 @@ public class EatFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        saveData();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        loadData();
+    }
+
+    private void saveData() {
+        String json = adapter.toJson();
+        FileOutputStream fos;
+        try {
+            fos = getContext().openFileOutput("dayMeals.json", Context.MODE_PRIVATE);
+            fos.write(json.getBytes());
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.e("Save", json);
+    }
+
+    private void loadData() {
+        FileInputStream fis;
+        try {
+            fis = getContext().openFileInput("dayMeals.json");
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+            ArrayList<DayMeal> dayMeals = adapter.fromJson(sb.toString());
+            Log.e("Load", sb.toString());
+
+            dayMealViewModel.setDayMeals(dayMeals); // Assurez-vous d'avoir une méthode dans votre ViewModel pour mettre à jour la liste
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
