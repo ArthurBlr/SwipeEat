@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.example.tests.R;
@@ -25,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.yuyakaido.android.cardstackview.SwipeAnimationSetting;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,6 +77,26 @@ public class SwiperFragment extends Fragment {
         adapter = new CardStackAdapter(createIngredients());
         cardStackView.setLayoutManager(manager);
         cardStackView.setAdapter(adapter);
+
+        AppCompatButton buttonLike = view.findViewById(R.id.button_like);
+        buttonLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SwipeAnimationSetting setting = new SwipeAnimationSetting.Builder()
+                        .setDirection(Direction.Right)
+                        .build();
+                manager.setSwipeAnimationSetting(setting);
+                cardStackView.swipe();
+            }
+        });
+        AppCompatButton buttonDislike = view.findViewById(R.id.button_dislike);
+        buttonDislike.setOnClickListener(v -> {
+            SwipeAnimationSetting setting = new SwipeAnimationSetting.Builder()
+                    .setDirection(Direction.Left)
+                    .build();
+            manager.setSwipeAnimationSetting(setting);
+            cardStackView.swipe();
+        });
 
         return view;
     }
