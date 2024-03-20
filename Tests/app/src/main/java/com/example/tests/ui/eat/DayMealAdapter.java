@@ -1,5 +1,6 @@
 package com.example.tests.ui.eat;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,79 +60,87 @@ public class DayMealAdapter extends RecyclerView.Adapter<DayMealAdapter.ViewHold
         DayMeal dayMeal = dayMeals.get(position);
         holder.dayTitle.setText(dayMeal.getDayTitle());
 
+        holder.btnMatin.setText(dayMeal.getBreakfastName());
+        holder.btnMidi.setText(dayMeal.getLunchName());
+        holder.btnSoir.setText(dayMeal.getDinnerName());
+
         holder.removeDayButton.setOnClickListener(v -> onDayRemovedListener.accept(position));
 
-        // Exemple d'écouteur de clic pour le bouton "Matin"
         holder.btnMatin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fetchRecipeName(holder.btnMatin);
+                fetchRecipeName(holder.btnMatin, position);
             }
         });
 
         holder.btnMidi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fetchRecipeName(holder.btnMidi);
+                fetchRecipeName(holder.btnMidi, position);
             }
         });
 
         holder.btnSoir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fetchRecipeName(holder.btnSoir);
+                fetchRecipeName(holder.btnSoir, position);
             }
         });
 
         // Ajout des écouteurs pour les boutons de suppression
         holder.removeButtonMatin.setOnClickListener(v -> {
-            holder.btnMatin.setHint(R.string.matin); // Réinitialise le texte du bouton "Matin"
-            holder.btnMatin.setText("");
+            dayMeals.get(position).setBreakfastName("Matin");
+            dayMeals.get(position).setBreakfastId(0);
+            holder.btnMatin.setText(dayMeals.get(position).getBreakfastName()); // Réinitialise le texte du bouton "Matin"
         });
 
         // Faites de même pour les boutons Midi et Soir
         holder.removeButtonMidi.setOnClickListener(v -> {
-            holder.btnMidi.setHint(R.string.midi); // Réinitialise le texte du bouton "Midi"
-            holder.btnMidi.setText("");
+            dayMeals.get(position).setLunchName("Midi");
+            dayMeals.get(position).setLunchId(0);
+            holder.btnMidi.setText(R.string.midi); // Réinitialise le texte du bouton "Midi"
         });
 
         holder.removeButtonSoir.setOnClickListener(v -> {
-            holder.btnSoir.setHint(R.string.soir); // Réinitialise le texte du bouton "Soir"
-            holder.btnSoir.setText("");
+            dayMeals.get(position).setDinnerName("Soir");
+            dayMeals.get(position).setDinnerId(0);
+            holder.btnSoir.setText(R.string.soir); // Réinitialise le texte du bouton "Soir"
         });
 
         Log.e("List", dayMeals.toString());
+
     }
 
-    private void fetchRecipeName(final Button button) {
+    private void fetchRecipeName(final Button button, int position) {
         RequestQueue queue = Volley.newRequestQueue(this.context);
         String url = "http://10.0.2.2:80/recipes?count=1";
 
-        // Utilisez JsonArrayRequest pour gérer une réponse qui est un tableau JSON
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            if (response.length() > 0) {
-                                JSONObject firstRecipe = response.getJSONObject(0);
-                                String recipeName = firstRecipe.getString("name"); // Obtient le nom de la recette
-                                button.setText(recipeName); // Met à jour le texte du bouton avec le nom de la recette
+                response -> {
+                    try {
+                        if (response.length() > 0) {
+                            JSONObject firstRecipe = response.getJSONObject(0);
+                            String recipeName = firstRecipe.getString("name");
+
+                            // Met à jour le modèle de données
+                            DayMeal dayMeal = dayMeals.get(position);
+                            if (button.getId() == R.id.btnMatin) {
+                                dayMeal.setBreakfastName(recipeName);
+                            } else if (button.getId() == R.id.midi) {
+                                dayMeal.setLunchName(recipeName);
+                            } else if (button.getId() == R.id.soir) {
+                                dayMeal.setDinnerName(recipeName);
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            // Gestion de l'erreur de parsing JSON
+                            button.setText(recipeName); // Met à jour l'UI
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // Gestion de l'erreur de requête
-                error.printStackTrace();
-            }
+                }, error -> {
+            // Gestion de l'erreur de requête
+            error.printStackTrace();
         });
 
-        // Ajouter la requête à la RequestQueue.
         queue.add(jsonArrayRequest);
     }
 
@@ -156,18 +165,6 @@ public class DayMealAdapter extends RecyclerView.Adapter<DayMealAdapter.ViewHold
             removeButtonMatin = itemView.findViewById(R.id.removeButtonMatin);
             removeButtonMidi = itemView.findViewById(R.id.removeButtonMidi);
             removeButtonSoir = itemView.findViewById(R.id.removeButtonSoir);
-        }
-    }
-
-    public void addDayMeal(DayMeal dayMeal) {
-        dayMeals.add(dayMeal);
-        notifyItemInserted(dayMeals.size() - 1);
-    }
-
-    public void removeDayMeal(int position) {
-        if (position >= 0 && position < dayMeals.size()) {
-            dayMeals.remove(position);
-            notifyItemRemoved(position);
         }
     }
 }

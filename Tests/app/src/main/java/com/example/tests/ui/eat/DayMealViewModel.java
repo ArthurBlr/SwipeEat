@@ -1,5 +1,7 @@
 package com.example.tests.ui.eat;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -27,12 +29,12 @@ public class DayMealViewModel extends ViewModel {
         ArrayList<DayMeal> currentMeals = dayMeals.getValue();
         if (currentMeals != null && position >= 0 && position < currentMeals.size()) {
             currentMeals.remove(position);
-            // Renomme les jours restants pour refléter leur nouvel ordre
             for (int i = position; i < currentMeals.size(); i++) {
-                String updatedDayTitle = "Jour " + (i + 1);
-                currentMeals.get(i).setDayTitle(updatedDayTitle);
+                DayMeal dayMeal = currentMeals.get(i);
+                dayMeal.setDayTitle("Jour " + (i + 1));
             }
-            dayMeals.setValue(currentMeals); // Met à jour LiveData avec la liste modifiée
+            dayMeals.setValue(currentMeals);
         }
     }
+
 }
