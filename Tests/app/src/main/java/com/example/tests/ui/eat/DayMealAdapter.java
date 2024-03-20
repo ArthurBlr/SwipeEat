@@ -2,6 +2,8 @@ package com.example.tests.ui.eat;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,7 +71,11 @@ public class DayMealAdapter extends RecyclerView.Adapter<DayMealAdapter.ViewHold
         holder.btnMatin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fetchRecipeName(holder.btnMatin, position);
+                if (dayMeal.getBreakfastId() != 0) {
+                    openWebPage("https://www.food.com/recipe/" + dayMeal.getBreakfastName().replace("", "-")+ "-" + dayMeal.getBreakfastId(), context);
+                } else {
+                    fetchRecipeName(holder.btnMatin, position);
+                }
             }
         });
 
@@ -126,10 +132,13 @@ public class DayMealAdapter extends RecyclerView.Adapter<DayMealAdapter.ViewHold
                             DayMeal dayMeal = dayMeals.get(position);
                             if (button.getId() == R.id.btnMatin) {
                                 dayMeal.setBreakfastName(recipeName);
+                                dayMeal.setBreakfastId(firstRecipe.getInt("recipe_id"));
                             } else if (button.getId() == R.id.midi) {
                                 dayMeal.setLunchName(recipeName);
+                                dayMeal.setLunchId(firstRecipe.getInt("recipe_id"));
                             } else if (button.getId() == R.id.soir) {
                                 dayMeal.setDinnerName(recipeName);
+                                dayMeal.setDinnerId(firstRecipe.getInt("recipe_id"));
                             }
                             button.setText(recipeName); // Met à jour l'UI
                         }
@@ -166,5 +175,13 @@ public class DayMealAdapter extends RecyclerView.Adapter<DayMealAdapter.ViewHold
             removeButtonMidi = itemView.findViewById(R.id.removeButtonMidi);
             removeButtonSoir = itemView.findViewById(R.id.removeButtonSoir);
         }
+    }
+
+    // Méthode pour ouvrir une page web
+    private void openWebPage(String url, Context context) {
+        Uri webpage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        context.startActivity(intent);
+        Log.e("Button", "Matin");
     }
 }
