@@ -7,3 +7,4 @@
     <stroke android:width="3dp" android:color="@color/black"/> <!-- Couleur du contour -->
     <padding android:left="10dp" android:top="10dp" android:right="2dp" android:bottom="50dp"/>
 </shape>
+
