@@ -8,47 +8,26 @@
     android:padding="16dp"
     tools:context=".ui.eat.EatFragment">
 
-    <Button
-        android:id="@+id/button_save"
+    <TextView
+        android:id="@+id/txt_semaine"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:backgroundTint="@color/button"
-        android:text="@string/txt_butt_save"
+        android:background="@color/button"
+        android:text="@string/txt_semaine"
+        android:textColor="@color/background"
+        android:textSize="28sp"
+        android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
-
-    <Button
-        android:id="@+id/button_charger"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:backgroundTint="@color/button"
-        android:text="@string/txt_butt_charger"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_save"
-        app:layout_constraintHorizontal_bias="0.5" />
-
-    <Button
-        android:id="@+id/button_supprimer"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:backgroundTint="@color/button"
-        android:text="@string/txt_butt_supprimer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_charger"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listeRepas"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toTopOf="@id/button_ajouter"
-        app:layout_constraintTop_toBottomOf="@id/button_supprimer"
+        app:layout_constraintTop_toBottomOf="@+id/txt_semaine"
         tools:layout_editor_absoluteX="16dp"
         tools:listitem="@layout/item_day" />
 

@@ -5,9 +5,7 @@
     <string name="title_likedislike">LikeDislike</string>
     <string name="title_options">Options</string>
     <string name="chercher">Chercher</string>
-    <string name="txt_butt_charger">Charger</string>
-    <string name="txt_butt_save">Sauvegarder</string>
-    <string name="txt_butt_supprimer">Supprimer</string>
+    <string name="txt_semaine">Planning</string>
     <string name="txt_butt_add">+</string>
     <string name="name_day">Jour</string>
     <string name="matin">Matin</string>
