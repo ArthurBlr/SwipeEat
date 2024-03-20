@@ -58,7 +58,7 @@ public class DayMealAdapter extends RecyclerView.Adapter<DayMealAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         DayMeal dayMeal = dayMeals.get(position);
         holder.dayTitle.setText(dayMeal.getDayTitle());
 
@@ -82,14 +82,22 @@ public class DayMealAdapter extends RecyclerView.Adapter<DayMealAdapter.ViewHold
         holder.btnMidi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fetchRecipeName(holder.btnMidi, position);
+                if (dayMeal.getLunchId() != 0) {
+                    openWebPage("https://www.food.com/recipe/" + dayMeal.getLunchName().replace("", "-")+ "-" + dayMeal.getLunchId(), context);
+                } else {
+                    fetchRecipeName(holder.btnMidi, position);
+                }
             }
         });
 
         holder.btnSoir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fetchRecipeName(holder.btnSoir, position);
+                if (dayMeal.getDinnerId() != 0) {
+                    openWebPage("https://www.food.com/recipe/" + dayMeal.getDinnerName().replace("", "-")+ "-" + dayMeal.getDinnerId(), context);
+                } else {
+                    fetchRecipeName(holder.btnSoir, position);
+                }
             }
         });
 
