@@ -2,6 +2,8 @@ package com.example.tests.ui.eat;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,18 @@ import androidx.lifecycle.ViewModelProvider; // Import manquant pour ViewModelPr
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.tests.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -34,7 +47,7 @@ public class EatFragment extends Fragment {
         // Initialisation de l'adaptateur avec une liste vide. La liste sera mise à jour via LiveData.
         adapter = new DayMealAdapter(new ArrayList<>(), position -> {
             dayMealViewModel.removeDayMeal(position); // Implémentation modifiée pour utiliser la méthode dans ViewModel
-        });
+        }, getContext());
         recyclerView.setAdapter(adapter);
 
         // Observer LiveData dans le ViewModel
@@ -55,6 +68,4 @@ public class EatFragment extends Fragment {
 
         return view;
     }
-
-    // Suppression de onDayRemoved puisque la gestion de la suppression est maintenant dans l'adaptateur et manipulée via le ViewModel
 }
